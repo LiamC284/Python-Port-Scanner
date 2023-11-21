@@ -12,7 +12,6 @@ print("Please wait scanning Host...", serverIP)
 
 startTime = time.time()
 
-#Storing port numbers in queue
 for i in range(1, 1026):
     q.put(i)
 
@@ -38,12 +37,10 @@ def scan():
                 pass
         q.task_done()
 
-#Create number of threads we want to use
 for i in range(300):
     t = threading.Thread(target=scan, daemon=True)
     t.start()
 
-#All the q.done tasks have to be done before it prints "Scanning completed in: x"
 q.join()
 
 print("Scanning completed in:", round(time.time() - startTime, 2), "seconds")
